@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 20px 0;
+             width: 100%;
+            text-align: center; 
+        }
+        .header img {
+            width: 35px;
+            height: 35px;
+            margin-right: 10px;
+        }
+        .header span {
+            font-size:34px;
+            font-weight: bold;
+            color: #333333;
+        }
+        .content {
+            padding: 0 20px;
+        }
+        .content h3 {
+            font-size: 20px;
+            color: #333333;
+        }
+        .content p {
+            font-size: 16px;
+            color: #666666;
+            line-height: 1.5;
+        }
+        .content a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+         .content img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+        }
+        .link{
+            font-size: 15px;
+        }
+        .main{
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+   <div class="container">
+       <div class="header">
+              <img src='https://cdn-icons-png.flaticon.com/256/2111/2111656.png' alt="trello"/>
+              <span class="main">Trello</span>
+       </div>
+       <hr />
+  <div class="content">
+       <img src="https://id-mail-assets.atlassian.com/template/aid_signup_welcome_verify_cobranded_adg/trello-people.png"  alt="Trello icons"/>
+            <h3>Hi,</h3>
+            <p>We've received a request to set a new password for this Atlassian account: 
+                <a class="link" href="{{resetPasswordUrl}}">{{resetPasswordUrl}}</a></p>
+  </div>
+  </div>
+</body>
+</html>
