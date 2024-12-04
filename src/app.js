@@ -123,7 +123,7 @@ app.use(passport.initialize());
 passport.use('jwt', jwtStrategy);
 
 app.get('/', (req, res) => {
-  res.send('Hello World');
+  res.send('ICQC Server is running successfully');
 });
 // Limit repeated failed requests to auth endpoints
 if (config.env === 'production') {
