@@ -115,8 +115,8 @@ const corsOptions = {
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   credentials: true,
 };
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Pre-flight for all routes
+app.use(cors({ origin: true, }));
+// app.options('*', cors(corsOptions)); // Pre-flight for all routes
 
 // JWT authentication
 app.use(passport.initialize());
