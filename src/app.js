@@ -122,7 +122,7 @@ app.use(cors({ origin: true, }));
 app.use(passport.initialize());
 passport.use('jwt', jwtStrategy);
 
-app.get('/v1', (req, res) => {
+app.get('/', (req, res) => {
   res.send('Hello World');
 });
 // Limit repeated failed requests to auth endpoints
