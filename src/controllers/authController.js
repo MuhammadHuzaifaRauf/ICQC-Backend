@@ -42,6 +42,7 @@ exports.signUp = async (req, res) => {
             lastName: user.lastName,
             email: user.email,
             role: user.role,
+            id: user.id,
         });
     } catch (err) {
         console.error(err);
@@ -67,6 +68,7 @@ exports.login = async (req, res) => {
             lastName: user.lastName,
             email: user.email,
             role: user.role,
+            id: user.id,
         });
     } catch (err) {
         console.error('Error during login:', err);

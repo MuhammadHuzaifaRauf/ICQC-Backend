@@ -2,10 +2,10 @@ const Joi = require('joi');
 
 const recordingValidation = (data) => {
     const schema = Joi.object({
-        name: Joi.string().required(),
-        filePath: Joi.string().required(),
-        duration: Joi.number().required(),
-        initials: Joi.string().required(),
+        audioParts: Joi.string().required(),
+        initials: Joi.string().optional(),
+        status: Joi.string().valid('saved', 'sent', 'hold').default('saved'),
+        userId: Joi.string().required(),
     });
 
     return schema.validate(data);

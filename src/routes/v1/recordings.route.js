@@ -12,12 +12,20 @@ router
 
 router
     .route('/hold')
+    .post(validate(recordingValidation.recordingValidation), recordingController.holdRecording)
     .get(recordingController.getHeldRecordings)
-    .post(validate(recordingValidation.recordingValidation), recordingController.holdRecording);
+
+
+router.route('/hold/:userId')
+    .get(recordingController.getHeldRecordings)
 
 
 router
     .route('/sent')
+    .post(recordingController.sentRecordings)
+
+router
+    .route('/sent/:userId')
     .get(recordingController.getSentRecordings);
 
 router

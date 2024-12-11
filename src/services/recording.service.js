@@ -20,6 +20,13 @@ const holdRecording = async (data) => {
     });
     return await newRecording.save();
 };
+const sendRecording = async (data) => {
+    const newRecording = new Recording({
+        ...data,
+        status: 'sent',
+    });
+    return await newRecording.save();
+};
 
 const deleteRecording = async (id) => {
     return await Recording.findByIdAndDelete(id);
@@ -29,12 +36,12 @@ const updateRecordingStatus = async (id, status) => {
     return await Recording.findByIdAndUpdate(id, { status }, { new: true });
 };
 
-const getHeldRecordings = async () => {
-    return await Recording.find({ status: 'hold' });
+const getHeldRecordings = async (userId) => {
+    return await Recording.find({ userId, status: 'hold' });
 };
 
-const getSentRecordings = async () => {
-    return await Recording.find({ status: 'sent' });
+const getSentRecordings = async (userId) => {
+    return await Recording.find({ userId, status: 'sent' });
 };
 
 module.exports = {
@@ -42,8 +49,9 @@ module.exports = {
     getRecordingById,
     saveRecording,
     holdRecording,
+    sendRecording,
     deleteRecording,
     updateRecordingStatus,
     getHeldRecordings,
-    getSentRecordings,
+    getSentRecordings
 };

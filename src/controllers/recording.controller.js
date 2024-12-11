@@ -10,7 +10,10 @@ const {
     updateRecordingStatus,
     getHeldRecordings,
     getSentRecordings,
+    sendRecording,
 } = require('../services/recording.service');
+
+const mongoose = require('mongoose');
 
 exports.getRecordings = async (req, res) => {
     try {
@@ -24,7 +27,8 @@ exports.getRecordings = async (req, res) => {
 
 exports.getHeldRecordings = async (req, res) => {
     try {
-        const heldRecordings = await getHeldRecordings();
+        const userId = req.params.userId;
+        const heldRecordings = await getHeldRecordings(userId);
         res.status(200).json(heldRecordings);
     } catch (err) {
         console.error(err);
@@ -33,8 +37,9 @@ exports.getHeldRecordings = async (req, res) => {
 };
 
 exports.getSentRecordings = async (req, res) => {
+    const userId = req.params.userId;
     try {
-        const sentRecordings = await getSentRecordings();
+        const sentRecordings = await getSentRecordings(userId);
         res.status(200).json(sentRecordings);
     } catch (err) {
         console.error(err);
@@ -71,16 +76,24 @@ exports.createRecording = async (req, res) => {
 exports.holdRecording = async (req, res) => {
     try {
         const { error } = recordingValidation(req.body);
-        if (error)
+        if (error) {
             return res.status(400).json({ message: error.details[0].message });
+        }
 
-        const { name, filePath, duration, initials } = req.body;
+        const { date, time, audioParts, status, userId } = req.body;
+
+        if (!audioParts) {
+            return res.status(400).json({ message: 'audioParts is required' });
+        }
+
+        const userObjectId = mongoose.Types.ObjectId(userId);
 
         const newRecording = await holdRecording({
-            name,
-            filePath,
-            duration,
-            initials,
+            date,
+            time,
+            status,
+            audioParts,
+            userId: userObjectId
         });
 
         res.status(201).json({
@@ -93,6 +106,40 @@ exports.holdRecording = async (req, res) => {
     }
 };
 
+
+
+exports.sentRecordings = async (req, res) => {
+    try {
+        const { error } = recordingValidation(req.body);
+        if (error) {
+            return res.status(400).json({ message: error.details[0].message });
+        }
+
+        const { date, time, audioParts, status, userId } = req.body;
+
+        if (!audioParts) {
+            return res.status(400).json({ message: 'audioParts is required' });
+        }
+
+        const userObjectId = mongoose.Types.ObjectId(userId);
+
+        const newRecording = await sendRecording({
+            date,
+            time,
+            status,
+            audioParts,
+            userId: userObjectId
+        });
+
+        res.status(201).json({
+            message: 'Recording send successfully',
+            recording: newRecording,
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Failed to send recording' });
+    }
+};
 exports.deleteRecording = async (req, res) => {
     try {
         const { error } = deleteValidation(req.params);

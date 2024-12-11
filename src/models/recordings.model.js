@@ -1,47 +1,35 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
 
-
 const getCurrentTime = () => {
     return moment().format('hh:mm A');
 };
 
-
 const recordingSchema = new mongoose.Schema({
-    name:
-    {
+    audioParts: {
         type: String,
         required: true
     },
-    filePath:
-    {
-        type: String,
-        required: true
-    },
-    duration:
-    {
-        type: Number,
-        required: true
-    },
-    status:
-    {
+    status: {
         type: String,
         enum: ['saved', 'sent', 'hold'], default: 'saved'
     },
-    time:
-    {
+    time: {
         type: String,
         default: getCurrentTime
     },
-    initials:
-    {
+    initials: {
         type: String,
-        required: true
+        // required: true
     },
-    createdAt:
-    {
+    date: {
         type: Date,
         default: Date.now
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
     },
 });
 
