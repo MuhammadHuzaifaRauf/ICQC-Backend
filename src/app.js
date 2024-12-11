@@ -13,8 +13,15 @@ const { authLimiter } = require('./middlewares/rateLimiter');
 const routes = require('./routes/v1');
 const { errorConverter, errorHandler } = require('./middlewares/error');
 const ApiError = require('./utils/ApiError');
+const mongoose = require('mongoose');
 
 const app = express();
+mongoose.connect('mongodb+srv://rananwmm:11221122@cluster0.kc688.mongodb.net/users', config.mongoose.options).then(() => {
+  logger.info('Connected to MongoDB');
+  server = app.listen(config.port, () => {
+    logger.info(`Listening to port ${config.port}`);
+  });
+});
 
 // Logging setup
 if (config.env !== 'test') {
