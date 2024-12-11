@@ -31,16 +31,16 @@ const { value: envVars, error } = envVarsSchema.prefs({ errors: { label: 'key' }
 if (error) {
   throw new Error(`Config validation error: ${error.message}`);
 }
-
+console.log('process.env.NODE_ENV', process.env.NODE_ENV)
 module.exports = {
   env: process.env.NODE_ENV,
   port: process.env.PORT,
   mongoose: {
-    url: process.env.MONGODB_URL + (process.env.NODE_ENV === 'test' ? '-test' : ''),
+    url: process.env.MONGODB_URL,
     options: {
-      useCreateIndex: true,
+      // useCreateIndex: true,
       useNewUrlParser: true,
-      useUnifiedTopology: true,
+      // useUnifiedTopology: true,
     },
   },
   jwt: {

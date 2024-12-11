@@ -45,9 +45,11 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions)); // Pre-flight for all routes
+console.log('corsOptions', corsOptions);
 
 app.get('/', (req, res) => {
   res.send('ICQC Server is running ');
+  console.log('ICQC Server is running');
 });
 // JWT authentication
 app.use(passport.initialize());

@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
-const moment = require('moment');
+const { toJSON, paginate } = require('./plugins');
 
-const getCurrentTime = () => {
-    return moment().format('hh:mm A');
-};
+
 
 const recordingSchema = new mongoose.Schema({
     audioParts: {
@@ -15,8 +13,8 @@ const recordingSchema = new mongoose.Schema({
         enum: ['saved', 'sent', 'hold'], default: 'saved'
     },
     time: {
-        type: String,
-        default: getCurrentTime
+        type: Date
+
     },
     initials: {
         type: String,
@@ -32,6 +30,9 @@ const recordingSchema = new mongoose.Schema({
         required: true,
     },
 });
+
+recordingSchema.plugin(toJSON);
+recordingSchema.plugin(paginate);
 
 const Recording = mongoose.model('Recording', recordingSchema);
 
