@@ -1,7 +1,15 @@
-
+const mongoose = require('mongoose');
+const app = require('./app');
+const config = require('./config/config');
 const logger = require('./config/logger');
 
 let server;
+mongoose.connect('mongodb+srv://rananwmm:11221122@cluster0.kc688.mongodb.net/users', config.mongoose.options).then(() => {
+  logger.info('Connected to MongoDB');
+  server = app.listen(config.port, () => {
+    logger.info(`Listening to port ${config.port}`);
+  });
+});
 
 const exitHandler = () => {
   if (server) {
